@@ -1,0 +1,62 @@
+.button-filter {
+  height: 25px;
+  border-radius: 4px;
+  color: #282c34;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+}
+.button-filter:hover {
+  background-color: darkgreen;
+  color: white;
+  transform: scale(1.1);
+}
+
+.filtersContainer {
+  margin-top: 20px;
+}
+
+.guestContainer {
+  color: white;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 10px;
+  justify-content: center;
+}
+.input-first {
+  background-color: #282c34;
+  color: white;
+  font-size: calc(10px + 2vmin);
+  font-weight: bold;
+  width: fit-content;
+  border: none;
+  text-align: end;
+  margin-left: 10px;
+}
+
+.input-last {
+  background-color: #282c34;
+  color: white;
+  font-size: calc(10px + 2vmin);
+  font-weight: bold;
+  width: fit-content;
+  border: none;
+  text-align: start;
+  margin-left: 10px;
+}
+
+.remove-btn {
+  height: 30px;
+  border-radius: 4px;
+  color: #282c34;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+}
+.remove-btn:hover {
+  background-color: lightcoral;
+  color: white;
+  transform: scale(1.1);
+}
