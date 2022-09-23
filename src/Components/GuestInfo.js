@@ -1,7 +1,8 @@
 import './guests.css';
 import { useEffect, useState } from 'react';
 
-const baseUrl = 'http://localhost:4000';
+const baseUrl =
+  'http://express-guest-list-api-memory-data-store.n2late.repl.co';
 
 function GuestInfo({ guest, getAllGuests }) {
   const [checkBoxValue, setCheckBoxValue] = useState(false);

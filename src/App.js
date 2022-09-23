@@ -2,7 +2,8 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Guests from './Components/Guests';
 
-const baseUrl = 'http://localhost:4000';
+const baseUrl =
+  'http://express-guest-list-api-memory-data-store.n2late.repl.co';
 function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
