@@ -43,7 +43,7 @@ function GuestInfo({ guest, getAllGuests }) {
   }
 
   return (
-    <div className="guestContainer" data-test-id="guest">
+    <div className="guestContainer" data-test-id={guest.id}>
       <input
         checked={checkBoxValue}
         type="checkbox"
