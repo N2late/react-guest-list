@@ -2,7 +2,7 @@ import './guests.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../App';
 
-function GuestInfo({ guest, getAllGuests, allGuests }) {
+function GuestInfo({ guest, getAllGuests }) {
   const [checkBoxValue, setCheckBoxValue] = useState(false);
   const [firstName, setFirstName] = useState(guest.firstName);
   const [lastName, setLastName] = useState(guest.lastName);
@@ -40,7 +40,6 @@ function GuestInfo({ guest, getAllGuests, allGuests }) {
       },
       body: JSON.stringify({ firstName: first, lastName: last }),
     });
-    await getAllGuests().catch(() => console.error);
   }
 
   return (

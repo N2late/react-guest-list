@@ -2,22 +2,23 @@ import './guests.css';
 import { useEffect, useState } from 'react';
 import GuestInfo from './GuestInfo';
 
+function updateGuestList(status, allGuests) {
+  const filtered = allGuests.filter((guest) => guest.attending === status);
+  console.log('test');
+  return filtered;
+}
+
 function Guests({ allGuests, getAllGuests }) {
   const [buttonType, setButtonType] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
 
-  async function updateGuestList(status) {
-    const tempGuestArr = await getAllGuests().catch(() => {});
-    const filtered = tempGuestArr.filter((guest) => guest.attending === status);
-    setFilteredList(filtered);
-  }
-
   useEffect(() => {
     if (buttonType === 'Attending') {
-      updateGuestList(true).catch(() => {});
-      getAllGuests().catch(() => console.error);
+      const list = updateGuestList(true, allGuests);
+      setFilteredList(list);
     } else if (buttonType === 'Not Attending') {
-      updateGuestList(false).catch(() => {});
+      const list = updateGuestList(false, allGuests);
+      setFilteredList(list);
     }
   }, [buttonType, allGuests]);
   return (
@@ -27,6 +28,7 @@ function Guests({ allGuests, getAllGuests }) {
           className="button-filter"
           onClick={() => {
             setButtonType('Attending');
+            getAllGuests();
           }}
         >
           Attending
@@ -35,6 +37,7 @@ function Guests({ allGuests, getAllGuests }) {
           className="button-filter"
           onClick={() => {
             setButtonType('Not Attending');
+            getAllGuests();
           }}
         >
           Not Attending
@@ -43,6 +46,7 @@ function Guests({ allGuests, getAllGuests }) {
           className="button-filter"
           onClick={() => {
             setButtonType('');
+            getAllGuests();
           }}
         >
           All Guests

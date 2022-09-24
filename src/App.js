@@ -37,7 +37,7 @@ function App() {
         const response = await fetch(`${baseUrl}/guests/${guest.id}`, {
           method: 'DELETE',
         });
-        const deleted = await response.json();
+        await response.json();
       }),
     ).then(() => setAllGuests([]));
   }
