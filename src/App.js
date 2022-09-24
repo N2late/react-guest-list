@@ -2,8 +2,9 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Guests from './Components/Guests';
 
-const baseUrl =
+export const baseUrl =
   'https://express-guest-list-api-memory-data-store.n2late.repl.co';
+
 function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -31,19 +32,19 @@ function App() {
   }
 
   async function deleteAllGuest() {
-    await allGuests.forEach(async (guest) => {
-      const response = await fetch(`${baseUrl}/guests/${guest.id}`, {
-        method: 'DELETE',
-      });
-      const deletedGuest = await response.json();
-      console.log(deletedGuest);
-    });
-    setIsSubmitted(!isSubmitted);
+    await Promise.all(
+      allGuests.map(async (guest) => {
+        const response = await fetch(`${baseUrl}/guests/${guest.id}`, {
+          method: 'DELETE',
+        });
+        const deleted = await response.json();
+      }),
+    ).then(() => setAllGuests([]));
   }
 
   useEffect(() => {
     getAllGuests().catch(() => console.error);
-  }, [isSubmitted, allGuests]);
+  }, [isSubmitted]);
 
   if (!allGuests) {
     return (

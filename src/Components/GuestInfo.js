@@ -1,15 +1,18 @@
 import './guests.css';
 import { useEffect, useState } from 'react';
+import { baseUrl } from '../App';
 
-const baseUrl =
-  'https://express-guest-list-api-memory-data-store.n2late.repl.co';
-
-function GuestInfo({ guest, getAllGuests }) {
+function GuestInfo({ guest, getAllGuests, allGuests }) {
   const [checkBoxValue, setCheckBoxValue] = useState(false);
   const [firstName, setFirstName] = useState(guest.firstName);
   const [lastName, setLastName] = useState(guest.lastName);
 
   useEffect(() => setCheckBoxValue(guest.attending), [guest.attending]);
+
+  useEffect(() => {
+    setFirstName(guest.firstName);
+    setLastName(guest.lastName);
+  }, [guest.firstName, guest.lastName]);
 
   async function deleteGuest(id) {
     await fetch(`${baseUrl}/guests/${id}`, {
@@ -37,7 +40,7 @@ function GuestInfo({ guest, getAllGuests }) {
       },
       body: JSON.stringify({ firstName: first, lastName: last }),
     });
-    getAllGuests().catch(() => console.error);
+    await getAllGuests().catch(() => console.error);
   }
 
   return (
