@@ -4,7 +4,6 @@ import GuestInfo from './GuestInfo';
 
 function updateGuestList(status, allGuests) {
   const filtered = allGuests.filter((guest) => guest.attending === status);
-  console.log('test');
   return filtered;
 }
 
