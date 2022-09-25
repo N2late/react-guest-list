@@ -7,7 +7,7 @@ function updateGuestList(status, allGuests) {
   return filtered;
 }
 
-function Guests({ allGuests, getAllGuests }) {
+function Guests({ allGuests, setAllGuests }) {
   const [buttonType, setButtonType] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
 
@@ -27,7 +27,6 @@ function Guests({ allGuests, getAllGuests }) {
           className="button-filter"
           onClick={() => {
             setButtonType('Attending');
-            getAllGuests();
           }}
         >
           Attending
@@ -36,7 +35,6 @@ function Guests({ allGuests, getAllGuests }) {
           className="button-filter"
           onClick={() => {
             setButtonType('Not Attending');
-            getAllGuests();
           }}
         >
           Not Attending
@@ -45,7 +43,6 @@ function Guests({ allGuests, getAllGuests }) {
           className="button-filter"
           onClick={() => {
             setButtonType('');
-            getAllGuests();
           }}
         >
           All Guests
@@ -56,8 +53,8 @@ function Guests({ allGuests, getAllGuests }) {
           <GuestInfo
             guest={guest}
             key={guest.id}
-            getAllGuests={getAllGuests}
             allGuests={allGuests}
+            setAllGuests={setAllGuests}
           />
         ))}
       {buttonType === 'Not Attending' &&
@@ -65,8 +62,8 @@ function Guests({ allGuests, getAllGuests }) {
           <GuestInfo
             guest={guest}
             key={guest.id}
-            getAllGuests={getAllGuests}
             allGuests={allGuests}
+            setAllGuests={setAllGuests}
           />
         ))}
       {!buttonType &&
@@ -74,8 +71,8 @@ function Guests({ allGuests, getAllGuests }) {
           <GuestInfo
             guest={guest}
             key={guest.id}
-            getAllGuests={getAllGuests}
             allGuests={allGuests}
+            setAllGuests={setAllGuests}
           />
         ))}
     </>

@@ -2,8 +2,9 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Guests from './Components/Guests';
 
-export const baseUrl =
-  'https://express-guest-list-api-memory-data-store.n2late.repl.co';
+export const baseUrl = 'http://localhost:4000';
+
+let id = 0;
 
 function App() {
   const [firstName, setFirstName] = useState('');
@@ -19,13 +20,27 @@ function App() {
   }
 
   async function createGuest(first, last) {
+    id += 1;
     await fetch(`${baseUrl}/guests`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ firstName: first, lastName: last }),
+      body: JSON.stringify({
+        id: id.toString(),
+        firstName: first,
+        lastName: last,
+      }),
     });
+    setAllGuests([
+      ...allGuests,
+      {
+        firstName: first,
+        lastName: last,
+        attending: false,
+        id: id.toString(),
+      },
+    ]);
     setFirstName('');
     setLastName('');
     setIsSubmitted(!isSubmitted);
@@ -44,7 +59,7 @@ function App() {
 
   useEffect(() => {
     getAllGuests().catch(() => console.error);
-  }, [isSubmitted]);
+  }, []);
 
   if (!allGuests) {
     return (
@@ -98,7 +113,7 @@ function App() {
         >
           Delete all
         </button>
-        <Guests allGuests={allGuests} getAllGuests={getAllGuests} />
+        <Guests allGuests={allGuests} setAllGuests={setAllGuests} />
       </header>
     </div>
   );
