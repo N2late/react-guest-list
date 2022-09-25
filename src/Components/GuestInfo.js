@@ -2,7 +2,7 @@ import './guests.css';
 import { useEffect, useState } from 'react';
 import { baseUrl } from '../App';
 
-function GuestInfo({ guest, getAllGuests }) {
+function GuestInfo({ guest, allGuests, setAllGuests }) {
   const [checkBoxValue, setCheckBoxValue] = useState(false);
   const [firstName, setFirstName] = useState(guest.firstName);
   const [lastName, setLastName] = useState(guest.lastName);
@@ -18,7 +18,8 @@ function GuestInfo({ guest, getAllGuests }) {
     await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
-    getAllGuests().catch(() => console.error);
+    const newList = allGuests.filter((item) => item.id !== id);
+    setAllGuests(newList);
   }
 
   async function updateGuestStatus(status, id) {
@@ -30,6 +31,13 @@ function GuestInfo({ guest, getAllGuests }) {
       body: JSON.stringify({ attending: status }),
     });
     setCheckBoxValue(status);
+    const newState = allGuests.map((obj) => {
+      if (obj.id === id) {
+        return { ...obj, attending: status };
+      }
+      return obj;
+    });
+    setAllGuests(newState);
   }
 
   async function updateName(id, first, last) {
@@ -40,6 +48,13 @@ function GuestInfo({ guest, getAllGuests }) {
       },
       body: JSON.stringify({ firstName: first, lastName: last }),
     });
+    const newState = allGuests.map((obj) => {
+      if (obj.id === id) {
+        return { ...obj, firstName: first, lastName: last };
+      }
+      return obj;
+    });
+    setAllGuests(newState);
   }
 
   return (
