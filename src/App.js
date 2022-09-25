@@ -2,7 +2,8 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Guests from './Components/Guests';
 
-export const baseUrl = 'http://localhost:4000';
+export const baseUrl =
+  'https://express-guest-list-api-memory-data-store.n2late.repl.co';
 
 let id = 0;
 
