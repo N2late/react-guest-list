@@ -6,6 +6,7 @@ function GuestInfo({ guest, allGuests, setAllGuests }) {
   const [checkBoxValue, setCheckBoxValue] = useState(false);
   const [firstName, setFirstName] = useState(guest.firstName);
   const [lastName, setLastName] = useState(guest.lastName);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => setCheckBoxValue(guest.attending), [guest.attending]);
 
@@ -63,34 +64,53 @@ function GuestInfo({ guest, allGuests, setAllGuests }) {
         checked={checkBoxValue}
         type="checkbox"
         aria-label="attending status"
+        className="checkbox"
         onChange={(e) => {
           updateGuestStatus(e.currentTarget.checked, guest.id).catch(() => {});
         }}
       />
-      <input
-        className="input-first"
-        value={firstName}
-        onChange={(e) => {
-          setFirstName(e.currentTarget.value);
-        }}
-        onKeyUp={(e) =>
-          updateName(guest.id, e.currentTarget.value, guest.lastName).catch(
-            () => {},
-          )
-        }
-      />
-      <input
-        className="input-last"
-        value={lastName}
-        onChange={(e) => {
-          setLastName(e.currentTarget.value);
-        }}
-        onKeyUp={(e) =>
-          updateName(guest.id, guest.firstName, e.currentTarget.value).catch(
-            () => {},
-          )
-        }
-      />
+      {edit ? (
+        <form
+          className="names-container"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <input
+            className="input-first"
+            value={firstName}
+            onChange={(e) => {
+              setFirstName(e.currentTarget.value);
+            }}
+          />
+          <input
+            className="input-last"
+            value={lastName}
+            onChange={(e) => {
+              setLastName(e.currentTarget.value);
+            }}
+          />
+          <button
+            className="edit-btn"
+            onClick={async () => {
+              await updateName(guest.id, firstName, lastName);
+              setEdit(false);
+            }}
+          >
+            Submit
+          </button>
+        </form>
+      ) : (
+        <>
+          <div className="names-container">
+            <p className="input-first">{guest.firstName}</p>{' '}
+            <p className="input-last">{guest.lastName}</p>
+          </div>
+          <button className="edit-btn" onClick={() => setEdit(true)}>
+            Edit
+          </button>
+        </>
+      )}
       <button
         className="remove-btn"
         onClick={() => {
