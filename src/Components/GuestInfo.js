@@ -78,6 +78,7 @@ function GuestInfo({ guest, allGuests, setAllGuests }) {
         >
           <input
             className="input-first"
+            required
             value={firstName}
             onChange={(e) => {
               setFirstName(e.currentTarget.value);
@@ -85,6 +86,7 @@ function GuestInfo({ guest, allGuests, setAllGuests }) {
           />
           <input
             className="input-last"
+            required
             value={lastName}
             onChange={(e) => {
               setLastName(e.currentTarget.value);

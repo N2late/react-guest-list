@@ -21,6 +21,15 @@ function App() {
   }
 
   async function createGuest(first, last) {
+    const onlyAcceptLetters = /^[a-zA-Z]+$/;
+    if (
+      !first ||
+      !last ||
+      !onlyAcceptLetters.test(first) ||
+      !onlyAcceptLetters.test(last)
+    ) {
+      return console.log('Please enter a valid name');
+    }
     id += 1;
     await fetch(`${baseUrl}/guests`, {
       method: 'POST',
@@ -84,8 +93,9 @@ function App() {
           </label>
           <input
             id="firstName"
+            required
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.currentTarget.value)}
           />
 
           <label className="secondInput" htmlFor="lastName">
@@ -93,8 +103,9 @@ function App() {
           </label>
           <input
             id="lastName"
+            required
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.currentTarget.value)}
           />
           <button
             className="return-btn"
